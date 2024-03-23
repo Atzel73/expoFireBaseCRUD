@@ -1,8 +1,8 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 
-import TextInput from '../components/TextInput';
-import Button from '../components/Button';
+import TextInput from '../../Components/TextInput/textInput';
+import Button from '../../Components/Button/button';
 
 export default function Login() {
   return (
