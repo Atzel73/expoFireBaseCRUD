@@ -4,7 +4,18 @@ import { Text, View } from 'react-native';
 import TextInput from '../../Components/TextInput/textInput';
 import Button from '../../Components/Button/button';
 
+import { useFormik } from 'formik';
+
+
+
+const { handleChange, handleSubmit, values } = useFormik({
+  initialValues: { email: '', password: '' },
+  onSubmit: values =>
+    alert(`Email: ${values.email}, Password: ${values.password}`)
+});
+
 export default function Login() {
+  
     return (
       <View
         style={{
@@ -27,6 +38,7 @@ export default function Login() {
             keyboardAppearance="dark"
             returnKeyType="next"
             returnKeyLabel="next"
+            onChangeText={handleChange('email')}
           />
         </View>
         <View style={{ paddingHorizontal: 32, marginBottom: 16, width: '100%' }}>
@@ -39,9 +51,11 @@ export default function Login() {
             keyboardAppearance="dark"
             returnKeyType="go"
             returnKeyLabel="go"
+            onChangeText={handleChange('password')}
+
           />
         </View>
-        <Button label="Login" onPress={() => true} />
+        <Button label="Login" onPress={handleSubmit} />
       </View>
     );
   }
