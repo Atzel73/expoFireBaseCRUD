@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback, useState} from 'react';
 import { Text, View } from 'react-native';
 
 import TextInput from '../../Components/TextInput/textInput';
@@ -9,12 +9,14 @@ import { Formik } from 'formik';
 import { setDoc } from '../../firebaseConfig';
 
 export default function Login() {
+
   return (
     <Formik
       initialValues={{ email: "", password: "" }}
-      onSubmit={(values) => {
+      onSubmit={(values, {resetForm}) => {
         setDoc(values.email, values.password);
         console.log("Formulario enviado correctamente:", values.email, values.password);
+        resetForm();
       }}
     >
       {({ handleChange, handleBlur, handleSubmit, values }) => (
@@ -41,9 +43,11 @@ export default function Login() {
               keyboardAppearance="dark"
               returnKeyType="next"
               returnKeyLabel="next"
-              onChangeText={handleChange("email")}
+              onChangeText= {handleChange("email")}
+
               onBlur={handleBlur("email")}
               value={values.email}
+              
             />
           </View>
           <View
@@ -59,11 +63,13 @@ export default function Login() {
               returnKeyType="go"
               returnKeyLabel="go"
               onChangeText={handleChange("password")}
+
               onBlur={handleBlur("password")}
               value={values.password}
+          
             />
           </View>
-          <Button label="Login" onPress={handleSubmit} />
+          <Button label="Login" onPress={handleSubmit}/>
 
         </View>
       )}
