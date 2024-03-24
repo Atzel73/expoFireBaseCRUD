@@ -6,7 +6,7 @@ import Button from '../../Components/Button/button';
 
 import { Formik } from 'formik';
 
-
+import { setDoc } from '../../firebaseConfig';
 
 export default function Login() {
   return (
@@ -61,7 +61,12 @@ export default function Login() {
               value={values.password}
             />
           </View>
-          <Button label="Login" onPress={handleSubmit} />
+          <Button label="Login" onPress={handleSubmit} 
+          onSubmit={() => {
+            setDoc(values.email, values.password);
+          }}
+          />
+
         </View>
       )}
     </Formik>
