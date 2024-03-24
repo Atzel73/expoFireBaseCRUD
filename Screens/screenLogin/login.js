@@ -12,8 +12,10 @@ export default function Login() {
   return (
     <Formik
       initialValues={{ email: "", password: "" }}
-      onSubmit={(values) => console.log(values.password, values.email)}
-
+      onSubmit={(values) => {
+        setDoc(values.email, values.password);
+        console.log("Formulario enviado correctamente:", values.email, values.password);
+      }}
     >
       {({ handleChange, handleBlur, handleSubmit, values }) => (
         <View
@@ -61,11 +63,7 @@ export default function Login() {
               value={values.password}
             />
           </View>
-          <Button label="Login" onPress={handleSubmit} 
-          onSubmit={() => {
-            setDoc(values.email, values.password);
-          }}
-          />
+          <Button label="Login" onPress={handleSubmit} />
 
         </View>
       )}

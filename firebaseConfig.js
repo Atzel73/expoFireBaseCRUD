@@ -33,11 +33,6 @@ export const setDoc = async (email, password) => {
   await addDoc(collection(db, "users"), {
     email: email,
     password: password
-  }) .then(() => {
-    console.log("Tarea guardada correctamente:", email, password
-    );
   })
-  .catch((error) => {
-    console.error("Error al guardar la tarea:", error);
-  });
+  console.log("Tarea guardada correctamente:", email, password);
 }
