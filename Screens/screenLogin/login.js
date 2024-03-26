@@ -5,6 +5,7 @@ import TextInput from '../../Components/TextInput/textInput';
 import Button from '../../Components/Button/button'; // Cambia buttonImage por Button
 import ImageViewer from '../../Components/ImageViewer/imageViewer';
 
+
 import PlaceholderImage from '../../assets/icon.png';
 
 
