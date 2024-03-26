@@ -1,20 +1,17 @@
 import React, { useCallback, useState } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native'; // Agrega StyleSheet a tus importaciones
 
 import TextInput from '../../Components/TextInput/textInput';
-import Button from '../../Components/Button/button';
-
-import buttonImage from '../../Components/buttonImage/buttonImage';
+import Button from '../../Components/Button/button'; // Cambia buttonImage por Button
 import ImageViewer from '../../Components/ImageViewer/imageViewer';
+
+import PlaceholderImage from '../../assets/icon.png';
 
 
 import { Formik } from 'formik';
-
 import { setDoc } from '../../firebaseConfig';
 
-
 import * as ImagePicker from 'expo-image-picker';
-
 
 export default function Login() {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -64,10 +61,8 @@ export default function Login() {
               returnKeyType="next"
               returnKeyLabel="next"
               onChangeText={handleChange("email")}
-
               onBlur={handleBlur("email")}
               value={values.email}
-
             />
           </View>
           <View
@@ -83,24 +78,38 @@ export default function Login() {
               returnKeyType="go"
               returnKeyLabel="go"
               onChangeText={handleChange("password")}
-
               onBlur={handleBlur("password")}
               value={values.password}
-
             />
           </View>
           <Button label="Login" onPress={handleSubmit} />
 
-          
-          <buttonImage theme="primary" label="Choose a photo" onPress={pickImageAsync} />
-          <View style={styles.imageContainer}>
-            <ImageViewer
-              placeholderImageSource={PlaceholderImage}
-              selectedImage={selectedImage}
-            />
+          <Button theme="primary" label="Choose a photo" onPress={pickImageAsync} />
+
+          <View style={styles.container}>
+            <View style={styles.imageContainer}>
+              <ImageViewer
+                placeholderImageSource={PlaceholderImage}
+                selectedImage={selectedImage}
+                
+              />
+              
+            </View>
           </View>
+
         </View>
       )}
     </Formik>
   );
 }
+
+const styles = StyleSheet.create({
+  imageContainer: {
+    marginTop: 20,
+  },
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  }
+});

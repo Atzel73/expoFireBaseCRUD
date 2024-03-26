@@ -1,6 +1,9 @@
 
 import React from "react";
 import { Image, StyleSheet } from "react-native";
+
+
+
 export default function ImageViewer({ placeholderImageSource, selectedImage }) {
     const imageSource = selectedImage  ? { uri: selectedImage } : placeholderImageSource;
   
@@ -11,7 +14,6 @@ export default function ImageViewer({ placeholderImageSource, selectedImage }) {
     image: {
       width: '100%',
       height: 300,
-      resizeMode: 'contain'
     }
   });
   

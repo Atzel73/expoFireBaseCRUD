@@ -21,7 +21,7 @@ const db = getFirestore(app);
 
 
 //Function to add data to fireStore
-export const setDoc = async (email, password) => {
+export const setDoc = async (email, password, image) => {
   await addDoc(collection(db, "users"), {
     email: email,
     password: password
