@@ -1,19 +1,39 @@
-import React, {useCallback, useState} from 'react';
+import React, { useCallback, useState } from 'react';
 import { Text, View } from 'react-native';
 
 import TextInput from '../../Components/TextInput/textInput';
 import Button from '../../Components/Button/button';
 
+import buttonImage from '../../Components/buttonImage/buttonImage';
+import ImageViewer from '../../Components/ImageViewer/imageViewer';
+
+
 import { Formik } from 'formik';
 
 import { setDoc } from '../../firebaseConfig';
 
-export default function Login() {
 
+import * as ImagePicker from 'expo-image-picker';
+
+
+export default function Login() {
+  const [selectedImage, setSelectedImage] = useState(null);
+  const pickImageAsync = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      allowsEditing: true,
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      setSelectedImage(result.assets[0].uri);
+    } else {
+      alert('You did not select any image.');
+    }
+  };
   return (
     <Formik
       initialValues={{ email: "", password: "" }}
-      onSubmit={(values, {resetForm}) => {
+      onSubmit={(values, { resetForm }) => {
         setDoc(values.email, values.password);
         console.log("Formulario enviado correctamente:", values.email, values.password);
         resetForm();
@@ -43,11 +63,11 @@ export default function Login() {
               keyboardAppearance="dark"
               returnKeyType="next"
               returnKeyLabel="next"
-              onChangeText= {handleChange("email")}
+              onChangeText={handleChange("email")}
 
               onBlur={handleBlur("email")}
               value={values.email}
-              
+
             />
           </View>
           <View
@@ -66,11 +86,19 @@ export default function Login() {
 
               onBlur={handleBlur("password")}
               value={values.password}
-          
+
             />
           </View>
-          <Button label="Login" onPress={handleSubmit}/>
+          <Button label="Login" onPress={handleSubmit} />
 
+          
+          <buttonImage theme="primary" label="Choose a photo" onPress={pickImageAsync} />
+          <View style={styles.imageContainer}>
+            <ImageViewer
+              placeholderImageSource={PlaceholderImage}
+              selectedImage={selectedImage}
+            />
+          </View>
         </View>
       )}
     </Formik>
