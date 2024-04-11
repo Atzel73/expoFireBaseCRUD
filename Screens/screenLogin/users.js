@@ -32,7 +32,7 @@ export default function Users() {
             {users.map((item, index) => {
                 return(
                     <View key={index}>
-                        <Text>Email: {item.email}</Text>
+                        <Text>{index}Email: {item.email}</Text>
                     </View>
                 );
             })}

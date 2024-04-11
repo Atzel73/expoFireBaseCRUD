@@ -43,3 +43,18 @@ export const setDoc = async (email, password) => {
   
   
 };
+
+
+export const setDocName = async (name) => {
+  try {
+    await addDoc(collection(db, "names"), {
+    name: name
+  });
+ Alert.alert("usuario registrado");
+  console.log("Nombre guardado correctamente:", name);
+  } catch (error) {
+    console.log(error);
+  }
+  
+  
+};
