@@ -41,8 +41,8 @@ export default function Users() {
                                 margin: 10,
                                 borderWidth: 3,
                                 borderRadius: 15,
-                                borderColor: "#F15A24",
-                                backgroundColor: "#F7E8DF",
+                                borderColor: "grey",
+                                backgroundColor: "beige",
                             }}>
                                 <Text>{index} Email: {item.email}</Text>
                             </View>
