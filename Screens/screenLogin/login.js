@@ -76,12 +76,13 @@ export default function Login() {
               onBlur={handleBlur("password")}
               value={values.password}
             />
+          </View>
+          <View style={{ paddingHorizontal: 32, marginBottom: 16, width: "100%" }}>
             <TextInput
-
+              icon="mail"
               placeholder="nombre clave"
               onChangeText={(text) => setUserName({ userName: text })} />
           </View>
-
 
 
           <TouchableOpacity

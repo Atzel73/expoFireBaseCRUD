@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, ScrollView } from 'react-native';
 import { db } from "../../firebaseConfig"
 import { collection, query, onSnapshot } from 'firebase/firestore';
 
@@ -28,15 +28,30 @@ export default function Users() {
     }, []);
 
     return (
+
         <View>
-            {users.map((item, index) => {
-                return(
-                    <View key={index}>
-                        <Text>{index}Email: {item.email}</Text>
-                    </View>
-                );
-            })}
+            <ScrollView>
+                {users.map((item, index) => {
+                    return (
+                        <View key={index}>
+                            <View style={{
+                                flexDirection: "row",
+                                alignItems: "center",
+                                padding: 20,
+                                margin: 10,
+                                borderWidth: 3,
+                                borderRadius: 15,
+                                borderColor: "#F15A24",
+                                backgroundColor: "#F7E8DF",
+                            }}>
+                                <Text>{index} Email: {item.email}</Text>
+                            </View>
+                        </View>
+                    );
+                })}
+            </ScrollView>
         </View>
+
     );
 }
 
