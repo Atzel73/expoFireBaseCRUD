@@ -12,10 +12,10 @@ import { set } from 'firebase/database';
 
 export default function Login() {
   const [userName, setUserName] = useState("");
-
+  const [userNick, setUserNick] = useState("");
   const setData = () => {
-    setDocName(userName);
-    console.log("Enviado con exito", userName)
+    setDocName(userName, userNick);
+    console.log("Enviado con exito", userName, userNick)
   }
 
 
@@ -77,11 +77,17 @@ export default function Login() {
               value={values.password}
             />
           </View>
+
           <View style={{ paddingHorizontal: 32, marginBottom: 16, width: "100%" }}>
+
+            <TextInput 
+            icon="mail"
+            placeholder="nombre real"
+            onChangeText={(text) => setUserNick(text)}/>
             <TextInput
-              icon="mail"
+              icon="key"
               placeholder="nombre clave"
-              onChangeText={(text) => setUserName({ userName: text })} />
+              onChangeText={(text) => setUserName(text)} />
           </View>
 
 
@@ -99,7 +105,6 @@ export default function Login() {
             onPress={setData}>
             <Text style={{ color: "#223e4b", fontSize: 16, fontWeight: "bold", marginTop: 16, textAlign: 'center' }}>
               Enviar
-
             </Text>
           </TouchableOpacity>
           <Button label="Login" onPress={handleSubmit} />
