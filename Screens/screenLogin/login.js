@@ -1,25 +1,132 @@
 import React, { useCallback, useState } from 'react';
-import { Text, View, TouchableOpacity } from 'react-native';
+
+import { Text, View, TouchableOpacity, Image } from 'react-native';
 
 import TextInput from '../../Components/TextInput/textInput';
 import Button from '../../Components/Button/button';
 
-import { Formik } from 'formik';
+import * as ImagePicker from 'expo-image-picker';
 
 import { setDocName } from '../../firebaseConfig';
-import { setDoc } from '../../firebaseConfig';
-import { set } from 'firebase/database';
 
 export default function Login() {
   const [userName, setUserName] = useState("");
   const [userNick, setUserNick] = useState("");
-  const setData = () => {
-    setDocName(userName, userNick);
-    console.log("Enviado con exito", userName, userNick)
+
+  const [image, setImage] = useState(null);
+
+  const pickImage = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 4],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.canceled) {
+      setImage(result.assets[0].uri);
+    }
+  };
+
+
+
+  const setData = async () => {
+    {/*
+    const storage = getStorage(db);
+    const { uri } = await FileSystem.getInfoAsync(image);
+    const blob = await new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.onload = () => {
+        resolve(xhr.response);
+      };
+      xhr.onerror = (e) => {
+        reject(new TypeError("Network request failed"));
+      };
+      xhr.responseType = "blob";
+      xhr.open("GET", uri, true);
+      xhr.send(null);
+    });
+    const filename = image.substring(
+      image.lastIndexOf("/") + 1
+    );
+    const storageRef = ref(storage, "foto-user/" + `${filename}`);
+    await uploadBytes(storageRef, blob).then((snapshot) => { });
+    const url = await getDownloadURL(storageRef);*/}
+
+
+    const filename = image.substring(
+      image.lastIndexOf("/") + 1
+    );
+    setDocName(userName, userNick, image);
+    console.log("Enviado con exito", userName, image)
   }
 
 
   return (
+    <View style={{
+      paddingHorizontal: 32,
+      marginBottom: 16,
+      width: "100%",
+      justifyContent: 'center',
+      marginTop: "50%",
+    }}>
+
+      <TouchableOpacity
+        style={{
+          flex: -1,
+          width: "100%",
+          textAlignVertical: "top",
+          textAlign: 'center',
+          margin: 5,
+          padding: 5,
+          borderColor: "black",
+          borderWidth: 3.5,
+          borderRadius: 85,
+        }}
+        onPress={pickImage}>
+        {!image && <Text
+          style={{ margin: 5, padding: 5, textAlign: 'center', color: 'black', fontSize: 14, fontStyle: 'italic' }}
+        >Selecciona una imagen</Text>}
+
+        {image && <Image
+          style={{ flex: -1, width: "100%", height: 200, borderRadius: 85, alignSelf: 'center' }}
+          source={{ uri: image }} />}
+      </TouchableOpacity>
+
+
+      <TextInput
+        icon="mail"
+        placeholder="nombre real"
+        onChangeText={(text) => setUserNick(text)} />
+      <TextInput
+        icon="key"
+        placeholder="nombre clave"
+        onChangeText={(text) => setUserName(text)} />
+      <TouchableOpacity
+        style={{
+          flex: -1,
+          width: "100%",
+          textAlignVertical: "top",
+          textAlign: 'center',
+          margin: 5,
+          padding: 5,
+          borderColor: "#FAC3AE",
+          borderWidth: 3.5,
+          borderRadius: 85,
+
+        }}
+        onPress={setData}>
+        <Text style={{ color: "#223e4b", fontSize: 16, fontWeight: "bold", marginTop: 'auto', textAlign: 'center' }}>
+          Enviar
+        </Text>
+      </TouchableOpacity>
+    </View>
+  );
+}
+{/*
     <Formik
       initialValues={{ email: "", password: "" }}
       onSubmit={(values, { resetForm }) => {
@@ -78,39 +185,15 @@ export default function Login() {
             />
           </View>
 
-          <View style={{ paddingHorizontal: 32, marginBottom: 16, width: "100%" }}>
-
-            <TextInput 
-            icon="mail"
-            placeholder="nombre real"
-            onChangeText={(text) => setUserNick(text)}/>
-            <TextInput
-              icon="key"
-              placeholder="nombre clave"
-              onChangeText={(text) => setUserName(text)} />
-          </View>
+          
 
 
-          <TouchableOpacity
-            style={{
-              flex: -1,
-              width: "100%",
-              textAlignVertical: "top",
-              margin: 5,
-              padding: 5,
-              borderBottomColor: "#FAC3AE",
-              borderBottomWidth: 3.5,
-              textAlign: 'center'
-            }}
-            onPress={setData}>
-            <Text style={{ color: "#223e4b", fontSize: 16, fontWeight: "bold", marginTop: 16, textAlign: 'center' }}>
-              Enviar
-            </Text>
-          </TouchableOpacity>
+          
           <Button label="Login" onPress={handleSubmit} />
 
         </View>
+
+        
       )}
     </Formik>
-  );
-}
+    */}
