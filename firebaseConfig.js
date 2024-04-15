@@ -78,9 +78,6 @@ export const setDocName = async (name, nick, photo) => {
     await uploadBytes(storageRef, blob).then((snapshot) => { });
     const url = await getDownloadURL(storageRef);
 
-
-
-
     await addDoc(collection(db, "names"), {
       name: name,
       nick: nick,

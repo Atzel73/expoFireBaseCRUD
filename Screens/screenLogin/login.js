@@ -4,10 +4,12 @@ import { Text, View, TouchableOpacity, Image } from 'react-native';
 
 import TextInput from '../../Components/TextInput/textInput';
 import Button from '../../Components/Button/button';
+import { setDocName } from '../../firebaseConfig';
+
+
+
 
 import * as ImagePicker from 'expo-image-picker';
-
-import { setDocName } from '../../firebaseConfig';
 
 export default function Login() {
   const [userName, setUserName] = useState("");
@@ -34,32 +36,6 @@ export default function Login() {
 
 
   const setData = async () => {
-    {/*
-    const storage = getStorage(db);
-    const { uri } = await FileSystem.getInfoAsync(image);
-    const blob = await new Promise((resolve, reject) => {
-      const xhr = new XMLHttpRequest();
-      xhr.onload = () => {
-        resolve(xhr.response);
-      };
-      xhr.onerror = (e) => {
-        reject(new TypeError("Network request failed"));
-      };
-      xhr.responseType = "blob";
-      xhr.open("GET", uri, true);
-      xhr.send(null);
-    });
-    const filename = image.substring(
-      image.lastIndexOf("/") + 1
-    );
-    const storageRef = ref(storage, "foto-user/" + `${filename}`);
-    await uploadBytes(storageRef, blob).then((snapshot) => { });
-    const url = await getDownloadURL(storageRef);*/}
-
-
-    const filename = image.substring(
-      image.lastIndexOf("/") + 1
-    );
     setDocName(userName, userNick, image);
     console.log("Enviado con exito", userName, image)
   }
