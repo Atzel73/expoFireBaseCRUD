@@ -84,7 +84,7 @@ export const setDocName = async (name, nick, photo) => {
       photo: url,
       status: "Activo"
     });
-    Alert.alert("usuario registrado");
+    Alert.alert("usuario registradoz");
     console.log("Nombre guardado correctamente:", name, nick, url);
   } catch (error) {
     console.log(error);
