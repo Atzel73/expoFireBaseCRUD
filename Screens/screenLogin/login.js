@@ -72,6 +72,7 @@ export default function Login() {
           source={{ uri: image }} />}
       </TouchableOpacity>
 
+            <Text>Hola  mundo</Text>
 
       <TextInput
         icon="mail"
